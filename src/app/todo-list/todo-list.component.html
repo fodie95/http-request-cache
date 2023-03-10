@@ -1,0 +1,35 @@
+
+
+<div class="container-fluid d-flex flex-column gap-2 h-100">
+  <div class="row">
+    <div class="d-flex justify-content-between">
+      <h3>Todos List </h3>
+      <div class="loading-msg" *ngIf="spinning"> loading  filter ... </div>
+
+      <div class="filter-are d-flex align-items-center gap-2" *ngIf="!spinning">
+          <label class="form-label text-nowrap"> Filter By status : </label>
+        <select class="form-select">
+            <option *ngFor="let status of statusList">
+                  {{status.name}}
+            </option>
+          </select>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="flex-grow-1 d-flex justify-content-center  flex-column align-items-center" *ngIf="spinning">
+    <div class="spinner-grow bg-primary" ></div>
+    <div class="loading-msg"> loading  todos... </div>
+  </div>
+  <div class="row" *ngIf="!spinning">
+    <div class="col-3"  *ngFor="let todo of todos$ | async">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{todo.title}}</h5>
+          <p class="card-text">{{todo.description}}.</p>
+          <span class="badge bg-primary">{{todo.status?.name}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

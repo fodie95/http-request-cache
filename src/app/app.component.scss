@@ -1,0 +1,10 @@
+.root-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+}
+
+a.active{
+  border-bottom: 1px solid white;
+}
