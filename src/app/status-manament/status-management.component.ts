@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StatusService} from "../services/status.service";
-import {RequiredValidator, UntypedFormBuilder, Validators} from "@angular/forms";
+import {UntypedFormBuilder, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {Status} from "../models/todo.model";
 
@@ -9,30 +9,36 @@ import {Status} from "../models/todo.model";
   templateUrl: './status-management.component.html',
   styleUrls: ['./status-management.component.scss']
 })
-export class StatusManagementComponent {
+export class StatusManagementComponent implements OnInit {
 
-  status$:Observable<Status[]>  =  this.statusService.all()
-  statusForm =  this.fb.group({
-    name:[null, [Validators.required]]
+  status$: Observable<Status[]> = this.statusService.all()
+  statusForm = this.fb.group({
+    name: [null, [Validators.required]]
   });
-  constructor(private statusService:StatusService,private fb:UntypedFormBuilder) {
+  statuss: Status[] = [];
+
+  constructor(public statusService: StatusService, private fb: UntypedFormBuilder) {
   }
 
   save() {
-    const status =  {...this.statusForm.value, id:this.generateId()}
-    this.statusService.save(status).subscribe((data)=>{
-      this.loadStatus()
-  })
+    const status = {...this.statusForm.value, id: this.generateId()}
+    this.statusService.save(status).subscribe((data) => {
+    })
+
+  }
+
+  delete(status: Status) {
+    this.statusService.delete(status.id).subscribe(() => {
+    })
+  }
+
+  ngOnInit(): void {
+    this.statusService.allFromDb().subscribe((data) => this.statuss = data)
+
   }
 
   private generateId() {
     return new Date().getTime();
-  }
-
-  delete(status:Status) {
-    this.statusService.delete(status.id).subscribe(()=>{
-      this.loadStatus();
-    })
   }
 
   private loadStatus() {

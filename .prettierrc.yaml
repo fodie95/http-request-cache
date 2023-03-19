@@ -1,0 +1,7 @@
+printWidth: 140
+singleQuote: true
+tabWidth: 3
+useTabs: false
+
+# js and ts rules:
+arrowParens: always
