@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {WebsocketService} from "./websocket/websocket.service";
+import {CacheRefreshService} from "./cache-layer/cache-refresh.service";
 
 @Component({
   selector: 'app-root',
@@ -25,6 +27,10 @@ export class AppComponent {
       route:'/status/list'
     }
   ]
+
+  constructor(private websocketService:WebsocketService,private cacheRefreshService:CacheRefreshService) {
+   this.websocketService.connect()
+  }
 
   activeMenu(m: { id: string; title: string; route: string,active?:boolean }) {
     this.menu.forEach((m)=>m.active =  false)

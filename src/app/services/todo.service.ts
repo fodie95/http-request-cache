@@ -1,11 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Todo} from "../models/todo.model";
 import {debounceTime, Observable, of} from "rxjs";
-import {CacheAll} from "../cache-layer/decorator";
 
 
-
-const StatusName   = [
+const StatusName = [
   "completed",
   "in progress",
   "pending"
@@ -31,15 +29,11 @@ export function generateTodo(): Todo {
 }
 
 
-@Injectable({providedIn:'root'})
-export  class TodoService {
+@Injectable({providedIn: 'root'})
+export class TodoService {
 
 
-  @CacheAll<Todo>({storageName:'todo'})
-  all() :Observable<Todo[]>{
-    return of(Array.from({ length: 15 }, generateTodo)).pipe(debounceTime(1000))
+  all(): Observable<Todo[]> {
+    return of(Array.from({length: 15}, generateTodo)).pipe(debounceTime(1000))
   }
-
-
-
 }

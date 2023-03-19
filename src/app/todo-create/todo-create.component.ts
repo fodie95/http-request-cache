@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {StatusService} from "../services/status.service";
-import {Observable} from "rxjs";
 import {Status} from "../models/todo.model";
 
 @Component({
@@ -9,12 +8,20 @@ import {Status} from "../models/todo.model";
   styleUrls: ['./todo-create.component.scss']
 })
 export class TodoCreateComponent {
-  constructor(private statusService:StatusService) {
+  statusOptions: Status[]
+
+  constructor(private statusService: StatusService) {
+    this.statusService.allFromDb()
+      .subscribe((data) => {
+        this.statusOptions = data
+      })
+
   }
-  status$: Observable<Status[]> = this.statusService.all();
 
   save() {
-    this.statusService.save({id:10,name :'Blocked'})
+    this.statusService.save({id: 10, name: 'Blocked'})
       .subscribe()
+
+
   }
 }
