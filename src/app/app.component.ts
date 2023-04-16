@@ -1,12 +1,6 @@
-<<<<<<< Updated upstream
-import { Component } from '@angular/core';
-import {WebsocketService} from "./websocket/websocket.service";
-import {CacheRefreshService} from "./cache-layer/cache-refresh.service";
-=======
 import {Component} from '@angular/core';
 import {WebsocketService} from "./websocket/websocket.service";
 import {RxWebsocketService} from "./websocket/rx-websocket.service";
->>>>>>> Stashed changes
 
 @Component({
   selector: 'app-root',
@@ -34,15 +28,6 @@ export class AppComponent {
     }
   ]
 
-<<<<<<< Updated upstream
-  constructor(private websocketService:WebsocketService,private cacheRefreshService:CacheRefreshService) {
-   this.websocketService.connect()
-  }
-
-  activeMenu(m: { id: string; title: string; route: string,active?:boolean }) {
-    this.menu.forEach((m)=>m.active =  false)
-    m.active =  true
-=======
   constructor(private websocketService: WebsocketService,
               private rx: RxWebsocketService) {
     this.websocketService.connect()
@@ -52,6 +37,5 @@ export class AppComponent {
   activeMenu(m: { id: string; title: string; route: string, active?: boolean }) {
     this.menu.forEach((m) => m.active = false)
     m.active = true
->>>>>>> Stashed changes
   }
 }
