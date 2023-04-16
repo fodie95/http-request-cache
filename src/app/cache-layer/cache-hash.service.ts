@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable, tap} from "rxjs";
 import {db} from "./cache-store";
 import {CacheRefreshService} from "./cache-refresh.service";
 
 
 interface CacheHash {
-  name: string,
+  id: string,
   hash: string
 }
 
@@ -20,24 +19,17 @@ export class CacheHashService {
   constructor(private http: HttpClient, private cacheRefreshService: CacheRefreshService) {
   }
 
-
-  all(): Observable<Set<CacheHash>> {
-    return this.http.get<Set<CacheHash>>('api/v1/cache-hash');
-  }
-
   diff() {
     return this.db.findAll('cache-hash').then((cacheHashes) => {
-      this.http.post<Array<CacheHash>>('api/v1/cache-hash/diff', cacheHashes)
-        .pipe(tap((caches) => this.db.saveAll('cache-hash', caches, 'name')))
-        .pipe((map((cacheHashes: CacheHash[]) => cacheHashes.map(cacheHash => cacheHash.name))))
+      return this.http.post<Array<CacheHash>>('api/v1/cache-hash/diff', cacheHashes)
         .toPromise()
-        .then(storageNames => {
-          if (storageNames.length)
-            debugger
-          this.cacheRefreshService.refreshAll(storageNames)
+        .then((cacheHashes: CacheHash[]) => {
+          return this.db.saveAll('cache-hash', cacheHashes)
+            .then((res) => {
+                this.cacheRefreshService.refreshAll(cacheHashes.map(cacheHash => cacheHash.id))
+              }
+            )
         })
     })
-
-
   }
 }

@@ -11,7 +11,11 @@ export class TodoCreateComponent {
   statusOptions: Status[]
 
   constructor(private statusService: StatusService) {
+<<<<<<< Updated upstream
     this.statusService.allFromDb()
+=======
+    this.statusService.fetchFromCache()
+>>>>>>> Stashed changes
       .subscribe((data) => {
         this.statusOptions = data
       })
@@ -22,6 +26,9 @@ export class TodoCreateComponent {
     this.statusService.save({id: 10, name: 'Blocked'})
       .subscribe()
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   }
 }

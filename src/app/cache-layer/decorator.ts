@@ -12,7 +12,7 @@ export function CacheManager(options: CacheOptions) {
   return (constructor: Function) => {
     {
       console.log(constructor.prototype)
-      debugger
+
       cacheManageerInstance.set(options.storageName, constructor.prototype)
     }
   }
@@ -44,6 +44,7 @@ export const RefreshCache = <T>(options: CacheOptions) => {
     const originalFunction = descriptor.value
     console.info(`Refreshing cache storage name ${options.storageName}`)
     descriptor.value = (...args: any[]): Observable<T[]> => {
+      debugger
       return (originalFunction.apply(this, args) as Observable<T[]>)
         .pipe(mergeMap((data: T[]) => {
           return from(db.saveAll<T>(options.storageName, data))
@@ -52,8 +53,8 @@ export const RefreshCache = <T>(options: CacheOptions) => {
         }))
     }
     cacheRefresherRegistry.set(options.storageName, {
-      instance: target,
-      method: descriptor.value,
+      instance: this,
+      method: propertyKey,
     })
 
   }
@@ -67,7 +68,6 @@ export function CacheAll<T>(options: CacheOptions) {
     console.log('descriptor ', descriptor)
 
     descriptor.value = function (...args: any[]): Observable<T[]> {
-
       return from(db.isTableExist(options.storageName))
         .pipe(mergeMap((cached: boolean) => {
           if (cached && environment.enableCaching) {

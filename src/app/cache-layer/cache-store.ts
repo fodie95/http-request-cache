@@ -12,7 +12,7 @@ export class AppDB<T> extends Dexie {
     this.version(1).stores({
       status: 'id',
       todo: 'id',
-      'cache-hash': 'name'
+      'cache-hash': 'id'
     })
   }
 
@@ -20,15 +20,16 @@ export class AppDB<T> extends Dexie {
     this.version(this.bdVersion++).stores({[schema]: index})
   }
 
-  saveAll<T>(table: string, items: T[], property?: string) {
-    return this.table(table).bulkDelete(items.map(item => item[property ?? 'id']))
+  saveAll<T>(table: string, items: T[]) {
+
+    return this.table(table).bulkDelete(items.map(item => item['id']))
       .then(() => this.table(table).bulkAdd(items))
   }
 
-  async save<T extends { id: number }>(table: string, item: T, key?: any) {
+  async save<T extends { id: number | string }>(table: string, item: T) {
     console.info("saving from cache")
-    await this.table(table).delete(item.id ?? key)
-    return from(this.table(table).add(item));
+    await this.table(table).delete(item.id)
+    return from(this.table(table).add(item)).subscribe();
   }
 
   async exist<T extends { id: number }>(table: string, item: T) {
