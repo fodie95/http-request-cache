@@ -18,9 +18,6 @@ export class StatusManagementComponent implements OnInit {
   });
   statuss: Status[] = [];
 
-<<<<<<< Updated upstream
-  constructor(public statusService: StatusService, private fb: UntypedFormBuilder) {
-=======
   constructor(public statusService: StatusService, private fb: UntypedFormBuilder
     , private store: Store<{ status: Status[] }>) {
 
@@ -28,7 +25,6 @@ export class StatusManagementComponent implements OnInit {
       .subscribe((status) => {
       })
 
->>>>>>> Stashed changes
   }
 
   save() {
@@ -44,12 +40,7 @@ export class StatusManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-<<<<<<< Updated upstream
-    this.statusService.allFromDb().subscribe((data) => this.statuss = data)
-
-=======
     this.statusService.fetchFromCache().subscribe((data) => this.statuss = data)
->>>>>>> Stashed changes
   }
 
   private generateId() {

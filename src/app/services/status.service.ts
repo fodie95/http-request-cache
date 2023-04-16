@@ -1,21 +1,6 @@
 import {Observable} from "rxjs";
 import {Status,} from "../models/todo.model";
 import {HttpClient} from "@angular/common/http";
-<<<<<<< Updated upstream
-import {CacheManager,} from "../cache-layer/decorator";
-import {liveQuery} from "dexie";
-import {db} from "../cache-layer/cache-store";
-
-
-@CacheManager({storageName: 'status'})
-export class StatusService {
-  private readonly apiUrl = "/api/v1/status"
-
-  constructor(public http: HttpClient) {
-  }
-
-
-=======
 import {inject, Inject, Injectable} from "@angular/core";
 import {CacheStorage} from "../cache-layer/cache.models";
 import {Store} from "@ngrx/store";
@@ -35,7 +20,6 @@ export class StatusService {
 
   //@RefreshCache({storageName: 'status'})
 
->>>>>>> Stashed changes
   all(): Observable<Status[]> {
     return this.http.get<Status[]>(this.apiUrl)
   }
@@ -50,12 +34,7 @@ export class StatusService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`)
   }
 
-<<<<<<< Updated upstream
-  allFromDb() {
-    return liveQuery<Status[]>(() => db.findAll<Status>('status'))
-=======
   fetchFromCache() {
     return this.cacheManagerStrategy.getAll("status")
->>>>>>> Stashed changes
   }
 }

@@ -19,11 +19,7 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
 
-<<<<<<< Updated upstream
-    this.statusService.allFromDb()
-=======
     this.statusService.fetchFromCache()
->>>>>>> Stashed changes
       .subscribe((data) => {
         this.statusList = data
         this.spinning = false

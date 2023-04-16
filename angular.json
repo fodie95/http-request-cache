@@ -20,23 +20,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-<<<<<<< Updated upstream
-            "allowedCommonJsDependencies": ["sockjs-client"],
-=======
             "allowedCommonJsDependencies": [
               "sockjs-client"
             ],
->>>>>>> Stashed changes
             "outputPath": "dist/caching-athelier",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
-<<<<<<< Updated upstream
-              "zone.js", "src/polyfills.ts"
-=======
               "zone.js",
               "src/polyfills.ts"
->>>>>>> Stashed changes
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
