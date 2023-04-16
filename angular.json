@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -17,12 +20,23 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+<<<<<<< Updated upstream
             "allowedCommonJsDependencies": ["sockjs-client"],
+=======
+            "allowedCommonJsDependencies": [
+              "sockjs-client"
+            ],
+>>>>>>> Stashed changes
             "outputPath": "dist/caching-athelier",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
+<<<<<<< Updated upstream
               "zone.js", "src/polyfills.ts"
+=======
+              "zone.js",
+              "src/polyfills.ts"
+>>>>>>> Stashed changes
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -64,6 +78,20 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "second-instance": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.second-instance.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -78,6 +106,9 @@
               "browserTarget": "caching-athelier:build:production"
             },
             "development": {
+              "browserTarget": "caching-athelier:build:development"
+            },
+            "second-instance": {
               "browserTarget": "caching-athelier:build:development"
             }
           },

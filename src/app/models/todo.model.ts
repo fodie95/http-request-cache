@@ -1,13 +1,13 @@
+import {CacheableEntity} from "../cache-layer/cache.models";
 
 
-export  interface Status  {
-  id:number
-  name:string
+export interface Status extends CacheableEntity {
+  name: string
 }
 
-export interface  Todo {
-  id:number;
-  title :string;
-  description :string;
-  status?:Status,
+export interface Todo {
+  id: number;
+  title: string;
+  description: string;
+  status?: Status,
 }

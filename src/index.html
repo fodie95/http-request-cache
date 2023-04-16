@@ -4,10 +4,24 @@
   <meta charset="utf-8">
   <title>CachingAthelier</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
-  <app-root></app-root>
+<style>
+  .msg-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<div class="msg-area" hidden id="msd">
+  <img src="./assets/Spinner.svg">
+  <div class="upgade-message"> Loading Configuration wait a moment ...</div>
+</div>
+<app-root></app-root>
 </body>
 </html>

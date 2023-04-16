@@ -1,3 +1,4 @@
 export const environment = {
-  enableCaching: true
+  enableCaching: true,
+  wsport: 8080
 };

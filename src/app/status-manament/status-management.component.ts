@@ -3,6 +3,7 @@ import {StatusService} from "../services/status.service";
 import {UntypedFormBuilder, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {Status} from "../models/todo.model";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-status-manament',
@@ -17,7 +18,17 @@ export class StatusManagementComponent implements OnInit {
   });
   statuss: Status[] = [];
 
+<<<<<<< Updated upstream
   constructor(public statusService: StatusService, private fb: UntypedFormBuilder) {
+=======
+  constructor(public statusService: StatusService, private fb: UntypedFormBuilder
+    , private store: Store<{ status: Status[] }>) {
+
+    this.store.select('status')
+      .subscribe((status) => {
+      })
+
+>>>>>>> Stashed changes
   }
 
   save() {
@@ -33,8 +44,12 @@ export class StatusManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+<<<<<<< Updated upstream
     this.statusService.allFromDb().subscribe((data) => this.statuss = data)
 
+=======
+    this.statusService.fetchFromCache().subscribe((data) => this.statuss = data)
+>>>>>>> Stashed changes
   }
 
   private generateId() {
